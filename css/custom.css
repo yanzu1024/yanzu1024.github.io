@@ -1,9 +1,21 @@
-/* 欢迎信息 */
-#welcome-info {
-  background: linear-gradient(45deg, #b9f4f3, #e3fbf9);
-  border-radius: 18px;
-  padding: 8px;
+/* 帧率检测 */
+#fps {
+  position: fixed;
+  /* 指定位置 */
+  left: 10px;
+  bottom: 10px;
+  z-index: 1919810;
 }
-[data-theme="dark"] #welcome-info {
-  background: #212121;
+[data-theme="light"] #fps {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: var(--backdrop-filter);
+  padding: 4px;
+  border-radius: 4px;
 }
+[data-theme="dark"] #fps {
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: var(--backdrop-filter);
+  padding: 4px;
+  border-radius: 4px;
+}
+
