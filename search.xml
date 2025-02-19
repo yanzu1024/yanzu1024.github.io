@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>Ubuntu使用</title>
+      <link href="/2025/02/19/09/"/>
+      <url>/2025/02/19/09/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Ubuntu-换源"><a href="#Ubuntu-换源" class="headerlink" title="Ubuntu 换源"></a>Ubuntu 换源</h1><h3 id="在使用-sudo-apt-get-update-和-sudo-apt-get-upgrade-进行更新时，可能下载会很慢，这个时候使用国内的镜像资源可能会明显提升下载速度。"><a href="#在使用-sudo-apt-get-update-和-sudo-apt-get-upgrade-进行更新时，可能下载会很慢，这个时候使用国内的镜像资源可能会明显提升下载速度。" class="headerlink" title="在使用 sudo apt-get update 和 sudo apt-get upgrade 进行更新时，可能下载会很慢，这个时候使用国内的镜像资源可能会明显提升下载速度。"></a>在使用 sudo apt-get update 和 sudo apt-get upgrade 进行更新时，可能下载会很慢，这个时候使用国内的镜像资源可能会明显提升下载速度。</h3><blockquote><h3 id="先是要备份原来的源文件"><a href="#先是要备份原来的源文件" class="headerlink" title="先是要备份原来的源文件"></a>先是要备份原来的源文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure><h3 id="再编辑-sources-list-文件"><a href="#再编辑-sources-list-文件" class="headerlink" title="再编辑 sources.list 文件"></a>再编辑 sources.list 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure><h3 id="这里使用阿里云的镜像"><a href="#这里使用阿里云的镜像" class="headerlink" title="这里使用阿里云的镜像"></a>这里使用阿里云的镜像</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://mirrors.aliyun.com/ubuntu/</span><br></pre></td></tr></table></figure><h3 id="替换后，再进行更新"><a href="#替换后，再进行更新" class="headerlink" title="替换后，再进行更新"></a>替换后，再进行更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Learning </tag>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第七弹</title>
       <link href="/2025/02/18/08/"/>
       <url>/2025/02/18/08/</url>
