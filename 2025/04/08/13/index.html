@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>插曲一(ros1) | yanzu_blog</title><meta name="author" content="yanzu"><meta name="copyright" content="yanzu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="cpp节点编写(ros1) ROS1中，cpp对应的接口叫—roscpp与ROS2一样，创建一个功能包之后，在该包的src(source)文件下新建cpp文件，先在工作空间下的 src&#x2F; 下创建一个功能包12roscd ros_workspace&#x2F;src&#x2F;catkin_create_pkg test_pkg roscpp rospy std_msgs  进入 test_pkg&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="插曲一(ros1)">
+<meta property="og:url" content="http://yanzu.tech/2025/04/08/13/index.html">
+<meta property="og:site_name" content="yanzu_blog">
+<meta property="og:description" content="cpp节点编写(ros1) ROS1中，cpp对应的接口叫—roscpp与ROS2一样，创建一个功能包之后，在该包的src(source)文件下新建cpp文件，先在工作空间下的 src&#x2F; 下创建一个功能包12roscd ros_workspace&#x2F;src&#x2F;catkin_create_pkg test_pkg roscpp rospy std_msgs  进入 test_pkg&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://picbed.yanzu.tech/img/post_cover/p13.png">
+<meta property="article:published_time" content="2025-04-08T15:27:16.759Z">
+<meta property="article:modified_time" content="2025-04-08T15:28:00.000Z">
+<meta property="article:author" content="yanzu">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="ROS1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://picbed.yanzu.tech/img/post_cover/p13.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yanzu.tech/2025/04/08/13/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '插曲一(ros1)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/nav.css"><link rel="stylesheet" href="/css/neon_light.css"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/info_card.css"><span id="fps"></span><style type="text/css"> .aplayer.aplayer-fixed { left: 20px !important; /* 靠左侧 20px */ top: 50% !important; /* 居中对齐 */ transform: translateY(-50%) !important; /* 让播放器真正居中 */ width: 300px !important; /* 播放器宽度 */ background: transparent !important; /* 透明背景 */ box-shadow: none !important; /* 去掉阴影 */ border: none !important; /* 去掉边框 */ } .aplayer.aplayer-fixed .aplayer-body { background: transparent !important; /* 去掉内部背景 */ } </style><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/images/bg.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post type-ROS1" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(http://picbed.yanzu.tech/img/post_cover/p13.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/images/nav_logo.png" alt="Logo"></a><a class="nav-page-title" href="/"><span class="site-name">插曲一(ros1)</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">插曲一(ros1)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-08T15:27:16.759Z" title="发表于 2025-04-08 23:27:16">2025-04-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-08T15:28:00.000Z" title="更新于 2025-04-08 23:28:00">2025-04-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="cpp节点编写-ros1"><a href="#cpp节点编写-ros1" class="headerlink" title="cpp节点编写(ros1)"></a>cpp节点编写(ros1)</h1><blockquote>
+<h3 id="ROS1中，cpp对应的接口叫—roscpp"><a href="#ROS1中，cpp对应的接口叫—roscpp" class="headerlink" title="ROS1中，cpp对应的接口叫—roscpp"></a>ROS1中，cpp对应的接口叫—roscpp</h3><h3 id="与ROS2一样，创建一个功能包之后，在该包的src-source-文件下新建cpp文件，先在工作空间下的-src-下创建一个功能包"><a href="#与ROS2一样，创建一个功能包之后，在该包的src-source-文件下新建cpp文件，先在工作空间下的-src-下创建一个功能包" class="headerlink" title="与ROS2一样，创建一个功能包之后，在该包的src(source)文件下新建cpp文件，先在工作空间下的 src&#x2F; 下创建一个功能包"></a>与ROS2一样，创建一个功能包之后，在该包的src(source)文件下新建cpp文件，先在工作空间下的 src&#x2F; 下创建一个功能包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roscd ros_workspace/src/</span><br><span class="line">catkin_create_pkg test_pkg roscpp rospy std_msgs</span><br></pre></td></tr></table></figure>
+
+<h3 id="进入-test-pkg-src-，创建一个cpp文件，"><a href="#进入-test-pkg-src-，创建一个cpp文件，" class="headerlink" title="进入 test_pkg&#x2F;src&#x2F; ，创建一个cpp文件，"></a>进入 test_pkg&#x2F;src&#x2F; ，创建一个cpp文件，</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd test_pkg/src</span><br><span class="line">touch test.cpp</span><br></pre></td></tr></table></figure>
+
+<h3 id="然后开始编写第一个cpp节点"><a href="#然后开始编写第一个cpp节点" class="headerlink" title="然后开始编写第一个cpp节点"></a>然后开始编写第一个cpp节点</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ros/ros.h&quot;</span>        <span class="comment">// 包含ROS的核心头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;std_msgs/String.h&quot;</span> <span class="comment">// 包含标准消息类型String的头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>           <span class="comment">// 包含字符串流处理的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化ROS节点，命名为&quot;talker&quot;</span></span><br><span class="line">    ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;talker&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个NodeHandle对象，用于与ROS系统通信</span></span><br><span class="line">    ros::NodeHandle n;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个发布者对象，发布名为&quot;chatter&quot;的消息队列长度为1000</span></span><br><span class="line">    ros::Publisher chatter_pub = n.<span class="built_in">advertise</span>&lt;std_msgs::String&gt;(<span class="string">&quot;chatter&quot;</span>, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置循环频率为10Hz</span></span><br><span class="line">    <span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计数器变量，用于在发布的消息中增加计数值</span></span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 进入主循环，只要ROS系统正常运行就会一直执行</span></span><br><span class="line">    <span class="keyword">while</span>(ros::<span class="built_in">ok</span>())&#123;</span><br><span class="line">        <span class="comment">// 创建一个String类型的消息对象</span></span><br><span class="line">        std_msgs::String msg;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用字符串流创建消息内容，包含&quot;hello world&quot;和当前计数值</span></span><br><span class="line">        std::stringstream ss;</span><br><span class="line">        ss &lt;&lt; <span class="string">&quot;hello world &quot;</span> &lt;&lt; count;</span><br><span class="line">        msg.data = ss.<span class="built_in">str</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 在控制台打印出即将发布的消息内容</span></span><br><span class="line">        <span class="built_in">ROS_INFO</span>(<span class="string">&quot;%s&quot;</span>, msg.data.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发布消息到&quot;chatter&quot;主题</span></span><br><span class="line">        chatter_pub.<span class="built_in">publish</span>(msg);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 处理回调函数，确保其他节点可以及时收到消息</span></span><br><span class="line">        ros::<span class="built_in">spinOnce</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按照设定的频率休眠一段时间</span></span><br><span class="line">        loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 增加计数器值</span></span><br><span class="line">        ++count;		</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 主程序返回0，表示成功结束</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="与-ros2-的cpp节点大致是一样的，都有节点的初始化，只是使用的方法不同了"><a href="#与-ros2-的cpp节点大致是一样的，都有节点的初始化，只是使用的方法不同了" class="headerlink" title="与 ros2 的cpp节点大致是一样的，都有节点的初始化，只是使用的方法不同了"></a>与 ros2 的cpp节点大致是一样的，都有节点的初始化，只是使用的方法不同了</h3><h3 id="创建并编写好结点之后，修改CMakeList文件"><a href="#创建并编写好结点之后，修改CMakeList文件" class="headerlink" title="创建并编写好结点之后，修改CMakeList文件"></a>创建并编写好结点之后，修改CMakeList文件</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 指定src/下需要编译为可执行文件的源文件，前面节点名可以直接自己指定</span><br><span class="line">add_executable($&#123;PROJECT_NAME&#125;_node  src/test.cpp)</span><br><span class="line"></span><br><span class="line"># 指定所要使用的链接库</span><br><span class="line">target_link_libraries($&#123;PROJECT_NAME&#125;_node</span><br><span class="line">$&#123;catkin_LIBRARIES&#125;</span><br><span class="line">）</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改完CMakeList文件之后，就开始编译"><a href="#修改完CMakeList文件之后，就开始编译" class="headerlink" title="修改完CMakeList文件之后，就开始编译"></a>修改完CMakeList文件之后，就开始编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roscd ros_workspace/</span><br><span class="line">catkin_make</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行，先打开一个命令框执行-roscore"><a href="#执行，先打开一个命令框执行-roscore" class="headerlink" title="执行，先打开一个命令框执行 roscore"></a>执行，先打开一个命令框执行 roscore</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://picbed.yanzu.tech/img/learn_ros1/1.png"></p>
+<h3 id="再打开一个窗口运行节点"><a href="#再打开一个窗口运行节点" class="headerlink" title="再打开一个窗口运行节点"></a>再打开一个窗口运行节点</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun test_pkg test_pkg_node</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://picbed.yanzu.tech/img/learn_ros1/2.png"></p>
+<h3 id="头文件的引用，在-ros1-下，cpp的-h-头文件要放在功能包目录下的include-pkg-name-路径下，"><a href="#头文件的引用，在-ros1-下，cpp的-h-头文件要放在功能包目录下的include-pkg-name-路径下，" class="headerlink" title="头文件的引用，在 ros1 下，cpp的 .h 头文件要放在功能包目录下的include&#x2F;pkg_name&#x2F; 路径下，"></a>头文件的引用，在 ros1 下，cpp的 .h 头文件要放在功能包目录下的include&#x2F;pkg_name&#x2F; 路径下，</h3><p><img src="http://picbed.yanzu.tech/img/learn_ros1/3.png"></p>
+<h3 id="创建好了头文件之后，需要引用头文件的cpp文件需要导入该头文件"><a href="#创建好了头文件之后，需要引用头文件的cpp文件需要导入该头文件" class="headerlink" title="创建好了头文件之后，需要引用头文件的cpp文件需要导入该头文件"></a>创建好了头文件之后，需要引用头文件的cpp文件需要导入该头文件</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pkg_name/xxx.h&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编译功能包时，cpp文件中引用的头文件，ros会在该功能包的-include-文件下开始找，给出以上路径后就可以精确找到被引用的头文件"><a href="#编译功能包时，cpp文件中引用的头文件，ros会在该功能包的-include-文件下开始找，给出以上路径后就可以精确找到被引用的头文件" class="headerlink" title="编译功能包时，cpp文件中引用的头文件，ros会在该功能包的 include&#x2F; 文件下开始找，给出以上路径后就可以精确找到被引用的头文件"></a>编译功能包时，cpp文件中引用的头文件，ros会在该功能包的 include&#x2F; 文件下开始找，给出以上路径后就可以精确找到被引用的头文件</h3><h3 id="如果要引用同一工作空间其他包的头文件，那么在创建功能包时，需要依赖要引用头文件所在的包"><a href="#如果要引用同一工作空间其他包的头文件，那么在创建功能包时，需要依赖要引用头文件所在的包" class="headerlink" title="如果要引用同一工作空间其他包的头文件，那么在创建功能包时，需要依赖要引用头文件所在的包"></a>如果要引用同一工作空间其他包的头文件，那么在创建功能包时，需要依赖要引用头文件所在的包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">catkin_create_pkg my_pkg roscpp rospy std_msgs test_pkg</span><br></pre></td></tr></table></figure>
+
+<h3 id="包创建好之后，他的CMakeList修改没有区别跟其他的包，被引用头文件的包的CMakeList文件需要修改"><a href="#包创建好之后，他的CMakeList修改没有区别跟其他的包，被引用头文件的包的CMakeList文件需要修改" class="headerlink" title="包创建好之后，他的CMakeList修改没有区别跟其他的包，被引用头文件的包的CMakeList文件需要修改"></a>包创建好之后，他的CMakeList修改没有区别跟其他的包，被引用头文件的包的CMakeList文件需要修改</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">catkin_package(</span><br><span class="line">  INCLUDE_DIRS include</span><br><span class="line">#  LIBRARIES test_pkg</span><br><span class="line">#  CATKIN_DEPENDS roscpp rospy std_msgs</span><br><span class="line">#  DEPENDS system_lib</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="这样修改之后，引用该包的头文件的包就能找到根据对应的路径找到需要引用的头文件了"><a href="#这样修改之后，引用该包的头文件的包就能找到根据对应的路径找到需要引用的头文件了" class="headerlink" title="这样修改之后，引用该包的头文件的包就能找到根据对应的路径找到需要引用的头文件了"></a>这样修改之后，引用该包的头文件的包就能找到根据对应的路径找到需要引用的头文件了</h3></blockquote>
+<h3 id="launch文件的编写"><a href="#launch文件的编写" class="headerlink" title="launch文件的编写"></a>launch文件的编写</h3><blockquote>
+<h3 id="因为，一个完整的ros程序，需要多个节点来完成所需实现的功能，而roslaunch一次性执行好多个节点的方法显然不够合理和高效，由此引出-launch文件。"><a href="#因为，一个完整的ros程序，需要多个节点来完成所需实现的功能，而roslaunch一次性执行好多个节点的方法显然不够合理和高效，由此引出-launch文件。" class="headerlink" title="因为，一个完整的ros程序，需要多个节点来完成所需实现的功能，而roslaunch一次性执行好多个节点的方法显然不够合理和高效，由此引出 launch文件。"></a>因为，一个完整的ros程序，需要多个节点来完成所需实现的功能，而roslaunch一次性执行好多个节点的方法显然不够合理和高效，由此引出 launch文件。</h3><h3 id="launch文件就是一个xml格式的脚本文件，把需要启动的节点都写进launch文件-中，这样就可以通过roslaunch工具来调用launch文件，执行这个脚本文件就一次性启动所有的节点程序。"><a href="#launch文件就是一个xml格式的脚本文件，把需要启动的节点都写进launch文件-中，这样就可以通过roslaunch工具来调用launch文件，执行这个脚本文件就一次性启动所有的节点程序。" class="headerlink" title="launch文件就是一个xml格式的脚本文件，把需要启动的节点都写进launch文件 中，这样就可以通过roslaunch工具来调用launch文件，执行这个脚本文件就一次性启动所有的节点程序。"></a>launch文件就是一个xml格式的脚本文件，把需要启动的节点都写进launch文件 中，这样就可以通过roslaunch工具来调用launch文件，执行这个脚本文件就一次性启动所有的节点程序。</h3><h3 id="创建一个包-robot-bringup，在其路径下创建一个文件-launch，在-launch-下创建并编辑-startup-launch-文件，用于同时启动多个节点"><a href="#创建一个包-robot-bringup，在其路径下创建一个文件-launch，在-launch-下创建并编辑-startup-launch-文件，用于同时启动多个节点" class="headerlink" title="创建一个包 robot_bringup，在其路径下创建一个文件 launch，在 launch&#x2F; 下创建并编辑 startup.launch 文件，用于同时启动多个节点"></a>创建一个包 robot_bringup，在其路径下创建一个文件 launch，在 launch&#x2F; 下创建并编辑 startup.launch 文件，用于同时启动多个节点</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">catkin_create_pkg robot_bringup</span><br><span class="line">cd robot_bringup</span><br><span class="line">mkdir launch</span><br><span class="line">cd launch/</span><br><span class="line">touch startup.launch</span><br><span class="line">subl startup.launch</span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑使之能同时运行-test-pkg-node-和-my-pkg-node-两个节点"><a href="#编辑使之能同时运行-test-pkg-node-和-my-pkg-node-两个节点" class="headerlink" title="编辑使之能同时运行 test_pkg_node 和 my_pkg_node 两个节点"></a>编辑使之能同时运行 test_pkg_node 和 my_pkg_node 两个节点</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># <span class="tag">&lt;<span class="name">launch</span>&gt;</span> 是根标签</span><br><span class="line"># <span class="tag">&lt;<span class="name">node</span>&gt;</span> 是节点标签,至少要有三个属性 pkg type name, type是指节点名,name给所运行的节点指定名称,他会覆盖ros::init的节点名, output 可以将单个节点的标准输出到终端</span><br><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;test_pkg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;test_pkg_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;test_pkg_node&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;my_pkg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;my_pkg_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_pkg_node&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="编译并运行"><a href="#编译并运行" class="headerlink" title="编译并运行"></a>编译并运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">catkin_make</span><br><span class="line">source ~/.bashrc</span><br><span class="line">roslaunch robot_bringup startup.launch</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://picbed.yanzu.tech/img/learn_ros1/4.png"></p>
+<h3 id="使用-include-标签，可以在当前-launch-文件中调用另外一个包的-launch文件"><a href="#使用-include-标签，可以在当前-launch-文件中调用另外一个包的-launch文件" class="headerlink" title="使用 include 标签，可以在当前 launch 文件中调用另外一个包的 launch文件"></a>使用 include 标签，可以在当前 launch 文件中调用另外一个包的 launch文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># find 命令可以直接搜索功能包的位置，代替直接使用绝对路径</span><br><span class="line"><span class="tag">&lt;<span class="name">include</span>  <span class="attr">file</span>=<span class="string">&quot;$(find package-name)/launch-file-name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建新的功能包-third-pkg，在-src-中创建并编写-third-pkg-cpp"><a href="#创建新的功能包-third-pkg，在-src-中创建并编写-third-pkg-cpp" class="headerlink" title="创建新的功能包 third_pkg，在 src 中创建并编写 third_pkg.cpp"></a>创建新的功能包 third_pkg，在 src 中创建并编写 third_pkg.cpp</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">catkin_create_pkg third_pkg roscpp rospy std_msgs</span><br><span class="line">cd third_pkg/src</span><br><span class="line">touch third_pkg.cpp</span><br><span class="line">subl third_pkg.cpp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ros/ros.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;std_msgs/String.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span> **argv)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	ros::<span class="built_in">init</span>(argc,argv,<span class="string">&quot;third_pkg&quot;</span>);</span><br><span class="line"></span><br><span class="line">	ros::NodeHandle n;<span class="comment">// 更新话题的消息格式为自定义的消息格式</span></span><br><span class="line"></span><br><span class="line">	ros::Publisher chatter_pub = n.<span class="built_in">advertise</span>&lt;std_msgs::String&gt;(<span class="string">&quot;third_pkg&quot;</span>,<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">	<span class="function">ros::Rate <span class="title">loop_rate</span><span class="params">(<span class="number">10</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(ros::<span class="built_in">ok</span>())&#123;</span><br><span class="line"></span><br><span class="line">		std_msgs::String msg;</span><br><span class="line"></span><br><span class="line">		std::stringstream ss;</span><br><span class="line"></span><br><span class="line">		ss&lt;&lt;<span class="string">&quot;third pkg:&quot;</span>&lt;&lt;count;</span><br><span class="line"></span><br><span class="line">		msg.data = ss.<span class="built_in">str</span>();</span><br><span class="line"></span><br><span class="line">		<span class="built_in">ROS_INFO</span>(<span class="string">&quot;%s&quot;</span>,msg.data.<span class="built_in">c_str</span>());</span><br><span class="line"></span><br><span class="line">		chatter_pub.<span class="built_in">publish</span>(msg);<span class="comment">//将消息发布到话题中</span></span><br><span class="line"></span><br><span class="line">		ros::<span class="built_in">spinOnce</span>();</span><br><span class="line"></span><br><span class="line">		loop_rate.<span class="built_in">sleep</span>();</span><br><span class="line"></span><br><span class="line">		++count;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改CMakeList文件"><a href="#修改CMakeList文件" class="headerlink" title="修改CMakeList文件"></a>修改CMakeList文件</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add_executable(third_pkg_node src/third_pkg.cpp)</span><br><span class="line"></span><br><span class="line">target_link_libraries(third_pkg_node</span><br><span class="line">  $&#123;catkin_LIBRARIES&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="在-third-pkg-下创建一个-launch-文件夹，并在该文件中创建并编译-third-pkg-launch-文件"><a href="#在-third-pkg-下创建一个-launch-文件夹，并在该文件中创建并编译-third-pkg-launch-文件" class="headerlink" title="在 third_pkg&#x2F; 下创建一个 launch 文件夹，并在该文件中创建并编译 third_pkg.launch 文件"></a>在 third_pkg&#x2F; 下创建一个 launch 文件夹，并在该文件中创建并编译 third_pkg.launch 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir launch</span><br><span class="line">cd launch</span><br><span class="line">touch third_pkg.launch</span><br><span class="line">subl third_pkg.launch</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;third_pkg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;third_pkg_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;third_pkg_node&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-robot-bringup-launch-下的-launch-文件"><a href="#修改-robot-bringup-launch-下的-launch-文件" class="headerlink" title="修改 robot_bringup&#x2F;launch&#x2F; 下的 launch 文件"></a>修改 robot_bringup&#x2F;launch&#x2F; 下的 launch 文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;test_pkg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;test_pkg_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;test_pkg_node&quot;</span> <span class="attr">respawn</span>=<span class="string">&quot;true&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">&quot;my_pkg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;my_pkg_node&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_pkg_node&quot;</span> <span class="attr">required</span>=<span class="string">&quot;true&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">&quot;$(find third_pkg)/launch/third_pkg.launch&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="然后编译运行"><a href="#然后编译运行" class="headerlink" title="然后编译运行"></a>然后编译运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">catkin_make</span><br><span class="line">source ~/.bashrc</span><br><span class="line">roslaunch robot_bringup startup.launch</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://picbed.yanzu.tech/img/learn_ros1/5.png"></p>
+</blockquote>
+<h3 id="好久没更新了，damn"><a href="#好久没更新了，damn" class="headerlink" title="好久没更新了，damn!"></a>好久没更新了，damn!</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://yanzu.tech">yanzu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://yanzu.tech/2025/04/08/13/">http://yanzu.tech/2025/04/08/13/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://yanzu.tech" target="_blank">yanzu_blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="http://picbed.yanzu.tech/img/post_cover/p13.png" data-sites="wechat,qq,copy_link"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/02/23/12/" title="第十弹"><img class="cover" src="http://picbed.yanzu.tech/img/post_cover/p12.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">第十弹</div></div><div class="info-2"><div class="info-item-1">话题通信实践案例自定义通信接口 在 chapter_3 下创建一个新的文件层，接着在 src&#x2F; 下创建功能包，并进入功能包，在其目录下创建文件 msg，再进入 msg&#x2F;，创建文件SystemStatus.msg12345678cd ~/learn_ros2/chapter_3/mkdir -p topic_practice_ws/srccd src/ros2 pkg create status_interfaces --dependencies builtin_interfaces rosidl_default_generators --license Apache-2.0cd status_interfaces/mkdir msgcd msgtouch SystemStatus.msg  编辑 .msg 文件内容1234567builtin_interfaces/Time stamp #记录时间戳string host_name # 主机名字float32 cpu_percent # cpu使用率float32 memory_percent #...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yanzu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yanzu1024/yanzu1024.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/yanzu1024" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:472874946@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/648854222?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #bilibili;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cpp%E8%8A%82%E7%82%B9%E7%BC%96%E5%86%99-ros1"><span class="toc-number">1.</span> <span class="toc-text">cpp节点编写(ros1)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ROS1%E4%B8%AD%EF%BC%8Ccpp%E5%AF%B9%E5%BA%94%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%8F%AB%E2%80%94roscpp"><span class="toc-number">1.0.1.</span> <span class="toc-text">ROS1中，cpp对应的接口叫—roscpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8EROS2%E4%B8%80%E6%A0%B7%EF%BC%8C%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%8C%85%E4%B9%8B%E5%90%8E%EF%BC%8C%E5%9C%A8%E8%AF%A5%E5%8C%85%E7%9A%84src-source-%E6%96%87%E4%BB%B6%E4%B8%8B%E6%96%B0%E5%BB%BAcpp%E6%96%87%E4%BB%B6%EF%BC%8C%E5%85%88%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E4%B8%8B%E7%9A%84-src-%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8A%9F%E8%83%BD%E5%8C%85"><span class="toc-number">1.0.2.</span> <span class="toc-text">与ROS2一样，创建一个功能包之后，在该包的src(source)文件下新建cpp文件，先在工作空间下的 src&#x2F; 下创建一个功能包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5-test-pkg-src-%EF%BC%8C%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAcpp%E6%96%87%E4%BB%B6%EF%BC%8C"><span class="toc-number">1.0.3.</span> <span class="toc-text">进入 test_pkg&#x2F;src&#x2F; ，创建一个cpp文件，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AAcpp%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.4.</span> <span class="toc-text">然后开始编写第一个cpp节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E-ros2-%E7%9A%84cpp%E8%8A%82%E7%82%B9%E5%A4%A7%E8%87%B4%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E9%83%BD%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E5%8F%AA%E6%98%AF%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%8D%E5%90%8C%E4%BA%86"><span class="toc-number">1.0.5.</span> <span class="toc-text">与 ros2 的cpp节点大致是一样的，都有节点的初始化，只是使用的方法不同了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%BC%96%E5%86%99%E5%A5%BD%E7%BB%93%E7%82%B9%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BF%AE%E6%94%B9CMakeList%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.6.</span> <span class="toc-text">创建并编写好结点之后，修改CMakeList文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%8CCMakeList%E6%96%87%E4%BB%B6%E4%B9%8B%E5%90%8E%EF%BC%8C%E5%B0%B1%E5%BC%80%E5%A7%8B%E7%BC%96%E8%AF%91"><span class="toc-number">1.0.7.</span> <span class="toc-text">修改完CMakeList文件之后，就开始编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%EF%BC%8C%E5%85%88%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E6%A1%86%E6%89%A7%E8%A1%8C-roscore"><span class="toc-number">1.0.8.</span> <span class="toc-text">执行，先打开一个命令框执行 roscore</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.9.</span> <span class="toc-text">再打开一个窗口运行节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E5%BC%95%E7%94%A8%EF%BC%8C%E5%9C%A8-ros1-%E4%B8%8B%EF%BC%8Ccpp%E7%9A%84-h-%E5%A4%B4%E6%96%87%E4%BB%B6%E8%A6%81%E6%94%BE%E5%9C%A8%E5%8A%9F%E8%83%BD%E5%8C%85%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84include-pkg-name-%E8%B7%AF%E5%BE%84%E4%B8%8B%EF%BC%8C"><span class="toc-number">1.0.10.</span> <span class="toc-text">头文件的引用，在 ros1 下，cpp的 .h 头文件要放在功能包目录下的include&#x2F;pkg_name&#x2F; 路径下，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A5%BD%E4%BA%86%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B9%8B%E5%90%8E%EF%BC%8C%E9%9C%80%E8%A6%81%E5%BC%95%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E7%9A%84cpp%E6%96%87%E4%BB%B6%E9%9C%80%E8%A6%81%E5%AF%BC%E5%85%A5%E8%AF%A5%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.11.</span> <span class="toc-text">创建好了头文件之后，需要引用头文件的cpp文件需要导入该头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%8A%9F%E8%83%BD%E5%8C%85%E6%97%B6%EF%BC%8Ccpp%E6%96%87%E4%BB%B6%E4%B8%AD%E5%BC%95%E7%94%A8%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%EF%BC%8Cros%E4%BC%9A%E5%9C%A8%E8%AF%A5%E5%8A%9F%E8%83%BD%E5%8C%85%E7%9A%84-include-%E6%96%87%E4%BB%B6%E4%B8%8B%E5%BC%80%E5%A7%8B%E6%89%BE%EF%BC%8C%E7%BB%99%E5%87%BA%E4%BB%A5%E4%B8%8A%E8%B7%AF%E5%BE%84%E5%90%8E%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%B2%BE%E7%A1%AE%E6%89%BE%E5%88%B0%E8%A2%AB%E5%BC%95%E7%94%A8%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.12.</span> <span class="toc-text">编译功能包时，cpp文件中引用的头文件，ros会在该功能包的 include&#x2F; 文件下开始找，给出以上路径后就可以精确找到被引用的头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E8%A6%81%E5%BC%95%E7%94%A8%E5%90%8C%E4%B8%80%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E5%85%B6%E4%BB%96%E5%8C%85%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%EF%BC%8C%E9%82%A3%E4%B9%88%E5%9C%A8%E5%88%9B%E5%BB%BA%E5%8A%9F%E8%83%BD%E5%8C%85%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E4%BE%9D%E8%B5%96%E8%A6%81%E5%BC%95%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E6%89%80%E5%9C%A8%E7%9A%84%E5%8C%85"><span class="toc-number">1.0.13.</span> <span class="toc-text">如果要引用同一工作空间其他包的头文件，那么在创建功能包时，需要依赖要引用头文件所在的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E5%88%9B%E5%BB%BA%E5%A5%BD%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BB%96%E7%9A%84CMakeList%E4%BF%AE%E6%94%B9%E6%B2%A1%E6%9C%89%E5%8C%BA%E5%88%AB%E8%B7%9F%E5%85%B6%E4%BB%96%E7%9A%84%E5%8C%85%EF%BC%8C%E8%A2%AB%E5%BC%95%E7%94%A8%E5%A4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E5%8C%85%E7%9A%84CMakeList%E6%96%87%E4%BB%B6%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9"><span class="toc-number">1.0.14.</span> <span class="toc-text">包创建好之后，他的CMakeList修改没有区别跟其他的包，被引用头文件的包的CMakeList文件需要修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E6%A0%B7%E4%BF%AE%E6%94%B9%E4%B9%8B%E5%90%8E%EF%BC%8C%E5%BC%95%E7%94%A8%E8%AF%A5%E5%8C%85%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E5%8C%85%E5%B0%B1%E8%83%BD%E6%89%BE%E5%88%B0%E6%A0%B9%E6%8D%AE%E5%AF%B9%E5%BA%94%E7%9A%84%E8%B7%AF%E5%BE%84%E6%89%BE%E5%88%B0%E9%9C%80%E8%A6%81%E5%BC%95%E7%94%A8%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6%E4%BA%86"><span class="toc-number">1.0.15.</span> <span class="toc-text">这样修改之后，引用该包的头文件的包就能找到根据对应的路径找到需要引用的头文件了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#launch%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99"><span class="toc-number">1.0.16.</span> <span class="toc-text">launch文件的编写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%A0%E4%B8%BA%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84ros%E7%A8%8B%E5%BA%8F%EF%BC%8C%E9%9C%80%E8%A6%81%E5%A4%9A%E4%B8%AA%E8%8A%82%E7%82%B9%E6%9D%A5%E5%AE%8C%E6%88%90%E6%89%80%E9%9C%80%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%8C%E8%80%8Croslaunch%E4%B8%80%E6%AC%A1%E6%80%A7%E6%89%A7%E8%A1%8C%E5%A5%BD%E5%A4%9A%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E6%96%B9%E6%B3%95%E6%98%BE%E7%84%B6%E4%B8%8D%E5%A4%9F%E5%90%88%E7%90%86%E5%92%8C%E9%AB%98%E6%95%88%EF%BC%8C%E7%94%B1%E6%AD%A4%E5%BC%95%E5%87%BA-launch%E6%96%87%E4%BB%B6%E3%80%82"><span class="toc-number">1.0.17.</span> <span class="toc-text">因为，一个完整的ros程序，需要多个节点来完成所需实现的功能，而roslaunch一次性执行好多个节点的方法显然不够合理和高效，由此引出 launch文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#launch%E6%96%87%E4%BB%B6%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AAxml%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6%EF%BC%8C%E6%8A%8A%E9%9C%80%E8%A6%81%E5%90%AF%E5%8A%A8%E7%9A%84%E8%8A%82%E7%82%B9%E9%83%BD%E5%86%99%E8%BF%9Blaunch%E6%96%87%E4%BB%B6-%E4%B8%AD%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%B0%B1%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87roslaunch%E5%B7%A5%E5%85%B7%E6%9D%A5%E8%B0%83%E7%94%A8launch%E6%96%87%E4%BB%B6%EF%BC%8C%E6%89%A7%E8%A1%8C%E8%BF%99%E4%B8%AA%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6%E5%B0%B1%E4%B8%80%E6%AC%A1%E6%80%A7%E5%90%AF%E5%8A%A8%E6%89%80%E6%9C%89%E7%9A%84%E8%8A%82%E7%82%B9%E7%A8%8B%E5%BA%8F%E3%80%82"><span class="toc-number">1.0.18.</span> <span class="toc-text">launch文件就是一个xml格式的脚本文件，把需要启动的节点都写进launch文件 中，这样就可以通过roslaunch工具来调用launch文件，执行这个脚本文件就一次性启动所有的节点程序。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8C%85-robot-bringup%EF%BC%8C%E5%9C%A8%E5%85%B6%E8%B7%AF%E5%BE%84%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6-launch%EF%BC%8C%E5%9C%A8-launch-%E4%B8%8B%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%BC%96%E8%BE%91-startup-launch-%E6%96%87%E4%BB%B6%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%90%8C%E6%97%B6%E5%90%AF%E5%8A%A8%E5%A4%9A%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.19.</span> <span class="toc-text">创建一个包 robot_bringup，在其路径下创建一个文件 launch，在 launch&#x2F; 下创建并编辑 startup.launch 文件，用于同时启动多个节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E4%BD%BF%E4%B9%8B%E8%83%BD%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C-test-pkg-node-%E5%92%8C-my-pkg-node-%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="toc-number">1.0.20.</span> <span class="toc-text">编辑使之能同时运行 test_pkg_node 和 my_pkg_node 两个节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%B9%B6%E8%BF%90%E8%A1%8C"><span class="toc-number">1.0.21.</span> <span class="toc-text">编译并运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-include-%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%BD%93%E5%89%8D-launch-%E6%96%87%E4%BB%B6%E4%B8%AD%E8%B0%83%E7%94%A8%E5%8F%A6%E5%A4%96%E4%B8%80%E4%B8%AA%E5%8C%85%E7%9A%84-launch%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.22.</span> <span class="toc-text">使用 include 标签，可以在当前 launch 文件中调用另外一个包的 launch文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E5%8A%9F%E8%83%BD%E5%8C%85-third-pkg%EF%BC%8C%E5%9C%A8-src-%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%BC%96%E5%86%99-third-pkg-cpp"><span class="toc-number">1.0.23.</span> <span class="toc-text">创建新的功能包 third_pkg，在 src 中创建并编写 third_pkg.cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9CMakeList%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.24.</span> <span class="toc-text">修改CMakeList文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-third-pkg-%E4%B8%8B%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-launch-%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E5%B9%B6%E5%9C%A8%E8%AF%A5%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%9B%E5%BB%BA%E5%B9%B6%E7%BC%96%E8%AF%91-third-pkg-launch-%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.25.</span> <span class="toc-text">在 third_pkg&#x2F; 下创建一个 launch 文件夹，并在该文件中创建并编译 third_pkg.launch 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-robot-bringup-launch-%E4%B8%8B%E7%9A%84-launch-%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.26.</span> <span class="toc-text">修改 robot_bringup&#x2F;launch&#x2F; 下的 launch 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C"><span class="toc-number">1.0.27.</span> <span class="toc-text">然后编译运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%BD%E4%B9%85%E6%B2%A1%E6%9B%B4%E6%96%B0%E4%BA%86%EF%BC%8Cdamn"><span class="toc-number">1.0.28.</span> <span class="toc-text">好久没更新了，damn!</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url(http://picbed.yanzu.tech/img/post_cover/p13.png);"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By yanzu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>(() => {
+  const panguFn = () => {
+    if (typeof pangu === 'object') pangu.autoSpacingPage()
+    else {
+      btf.getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+        .then(() => {
+          pangu.autoSpacingPage()
+        })
+    }
+  }
+
+  const panguInit = () => {
+    if (false){
+      GLOBAL_CONFIG_SITE.isPost && panguFn()
+    } else {
+      panguFn()
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', panguInit, 'pangu')
+  document.addEventListener('DOMContentLoaded', panguInit)
+})()</script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
+  const option = {"lang":"zh-CN"}
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-eta-one.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-eta-one.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><div class="aplayer no-destroy" data-id="13400648726" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-lrcType="-1"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
