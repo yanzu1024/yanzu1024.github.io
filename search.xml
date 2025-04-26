@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>autoware.universe安装后的官方demo运行</title>
+      <link href="/2025/04/26/14/"/>
+      <url>/2025/04/26/14/</url>
+      
+        <content type="html"><![CDATA[<h1 id="autoware-universe安装后的官方demo运行"><a href="#autoware-universe安装后的官方demo运行" class="headerlink" title="autoware.universe安装后的官方demo运行"></a>autoware.universe安装后的官方demo运行</h1><blockquote><h3 id="先下载官网上的示例地图，autoware-map和autoware在同一路径下"><a href="#先下载官网上的示例地图，autoware-map和autoware在同一路径下" class="headerlink" title="先下载官网上的示例地图，autoware_map和autoware在同一路径下"></a>先下载官网上的示例地图，autoware_map和autoware在同一路径下</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gdown -O ~/autoware_map/ &#x27;https://docs.google.com/uc?export=download&amp;id=1499_nsbUbIeturZaDj7jhUownh5fvXHd&#x27;</span><br><span class="line">unzip -d ~/autoware_map ~/autoware_map/sample-map-planning.zip</span><br></pre></td></tr></table></figure><h3 id="然后刷新环境变量并运行"><a href="#然后刷新环境变量并运行" class="headerlink" title="然后刷新环境变量并运行"></a>然后刷新环境变量并运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source install/setup.bash</span><br><span class="line">ros2 launch autoware_launch planning_simulator.launch.xml map_path:=$HOME/autoware_map/sample-map-planning vehicle_model:=sample_vehicle sensor_model:=sample_sensor_kit</span><br></pre></td></tr></table></figure><h3 id="运行起来之后会打开一个叫做-rviz2-的界面，"><a href="#运行起来之后会打开一个叫做-rviz2-的界面，" class="headerlink" title="运行起来之后会打开一个叫做 rviz2 的界面，"></a>运行起来之后会打开一个叫做 rviz2 的界面，</h3><p><img src="http://picbed.yanzu.tech/img/autoware/1.png"></p><h3 id="使用-2D-Pose-Estimate-给定自动驾驶小车的初始位置，"><a href="#使用-2D-Pose-Estimate-给定自动驾驶小车的初始位置，" class="headerlink" title="使用 2D Pose Estimate 给定自动驾驶小车的初始位置，"></a>使用 2D Pose Estimate 给定自动驾驶小车的初始位置，</h3><p><img src="http://picbed.yanzu.tech/img/autoware/2.png"></p><h3 id="然后使用-2D-Goal-Pose-指定目标位置，前提是这个目标位置是从初始位置可达的才行，指定了目标位置之后，地图上会出现一条行驶轨迹"><a href="#然后使用-2D-Goal-Pose-指定目标位置，前提是这个目标位置是从初始位置可达的才行，指定了目标位置之后，地图上会出现一条行驶轨迹" class="headerlink" title="然后使用 2D Goal Pose 指定目标位置，前提是这个目标位置是从初始位置可达的才行，指定了目标位置之后，地图上会出现一条行驶轨迹"></a>然后使用 2D Goal Pose 指定目标位置，前提是这个目标位置是从初始位置可达的才行，指定了目标位置之后，地图上会出现一条行驶轨迹</h3><p><img src="http://picbed.yanzu.tech/img/autoware/3.png"></p><h3 id="在当前命令框路径下打开一个新的命令框，刷新一下环境变量后，执行以下命令就可以实现小车的自动驾驶了"><a href="#在当前命令框路径下打开一个新的命令框，刷新一下环境变量后，执行以下命令就可以实现小车的自动驾驶了" class="headerlink" title="在当前命令框路径下打开一个新的命令框，刷新一下环境变量后，执行以下命令就可以实现小车的自动驾驶了"></a>在当前命令框路径下打开一个新的命令框，刷新一下环境变量后，执行以下命令就可以实现小车的自动驾驶了</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source install/setup.bash</span><br><span class="line">ros2 topic pub /autoware/engage autoware_vehicle_msgs/msg/Engage &#x27;&#123;engage: true&#125;&#x27; -1</span><br></pre></td></tr></table></figure><p><img src="http://picbed.yanzu.tech/img/autoware/4.png"></p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> ROS2 </tag>
+            
+            <tag> Learning </tag>
+            
+            <tag> autoware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>插曲一(ros1)</title>
       <link href="/2025/04/08/13/"/>
       <url>/2025/04/08/13/</url>
@@ -98,9 +121,9 @@
       
         <tags>
             
-            <tag> Ubuntu </tag>
-            
             <tag> Learning </tag>
+            
+            <tag> Ubuntu </tag>
             
         </tags>
       
